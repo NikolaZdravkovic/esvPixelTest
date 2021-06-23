@@ -16,17 +16,54 @@
             // Get a reference to the div on the page that will display the
             // message text.
             var messageEle = document.getElementById('message');
+            var newCookieVals;
+            var cookieExpiration = new Date(+new Date() + 1000 * 60 * 60 * 24 * 30 * 24);
+
 
             // A function to process messages received by the window.
             function receiveMessage(e) {
                 // Check to make sure that this message came from the correct domain.
-                if (e.data === "Hello Treehouse!")
-                   // return;
+                if (e.type === "message") {
+                    // Update the div element to display the message.
+                    var params = e.data;
+                    function writeCookie_(name, value, expiration) {
 
-                // Update the div element to display the message.
-             
-                console.log('meesage is received from redirect page!')
-                document.cookie = "username=John Doe; expires=Thu, 18 Dec 2021 12:00:00 UTC";
+                         var str = name + '=' + value + ';';
+                        if (expiration) str += 'Expires=' + expiration.toGMTString() + ';';
+                        // if (path) str += 'Path=' + path + ';';
+                        // if (domain) str += 'Domain=' + domain + ';';
+
+                        document.cookie = str;
+
+                    }
+                    function writeCurrentCookie_(name, value, path) {
+
+                        if (path) str += 'Path=' + path + ';';
+                        if (domain) str += 'Domain=' + domain + ';';
+
+                        document.cookie = str;
+
+                    }
+
+                    if (!getCookie_('initialTrafficSource')) {
+                        writeCookie_('initialTrafficSource', newCookieVals.join('|'), cookieExpiration, '/');
+                    }
+                    if (!getCookie_('esvTrafficSource')) {
+                        sessionStorage.setItem('cookieSession', 'false');
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), '/');
+                    }
+                    if (cookieSession == 'true') {
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), '/');
+                        sessionStorage.setItem('cookieSession', 'false');
+                    } ƒ
+
+                    //     var utm_campaign = params.utm_campaign;
+                    //     var utm_medium = params.utm_medium;
+                    //     var utm_source=params.utm_source;
+                    //    console.log(e.data)
+                }
+
+
             }
 
             // Setup an event listener that calls receiveMessage() when the window
