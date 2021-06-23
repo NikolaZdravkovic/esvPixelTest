@@ -50,10 +50,12 @@
                         if (cvals.length > 1) return cvals.pop().split(';')[0];
 
                     }
-                    function writeCurrentCookie_(name, value, path) {
+                    function writeCurrentCookie_(name,value,expires) {
 
-                        if (path) str += 'Path=' + path + ';';
-                        if (domain) str += 'Domain=' + domain + ';';
+                        // if (path) str += 'Path=' + path + ';';
+                        // if (domain) str += 'Domain=' + domain + ';';
+                        var str = name + '=' + value + expires + ';';
+
 
                         document.cookie = str;
 
