@@ -20,20 +20,34 @@
             var cookieExpiration = new Date(+new Date() + 1000 * 60 * 60 * 24 * 30 * 24);
 
 
+
             // A function to process messages received by the window.
             function receiveMessage(e) {
                 // Check to make sure that this message came from the correct domain.
                 if (e.type === "message") {
                     // Update the div element to display the message.
                     var newCookieVals = e.data;
+                    var storedVals = getCookie_('__utmz') || getCookie_('__utmzz');
+                    var sessionCookie = getCookie_('__utmzzses');
+
+
                     function writeCookie_(name, value, expiration) {
 
-                         var str = name + '=' + value + ';';
+                        var str = name + '=' + value + ';';
                         if (expiration) str += 'Expires=' + expiration.toGMTString() + ';';
                         // if (path) str += 'Path=' + path + ';';
                         // if (domain) str += 'Domain=' + domain + ';';
 
                         document.cookie = str;
+
+                    }
+
+                    function getCookie_(name) {
+
+                        var cookies = '; ' + document.cookie
+                        var cvals = cookies.split('; ' + name + '=');
+
+                        if (cvals.length > 1) return cvals.pop().split(';')[0];
 
                     }
                     function writeCurrentCookie_(name, value, path) {
