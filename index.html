@@ -30,6 +30,30 @@
                     var storedVals = getCookie_('__utmz') || getCookie_('__utmzz');
                     var sessionCookie = getCookie_('__utmzzses');
 
+                    // Define variables - take values from url
+                    var url_string = window.location.href; //window.location.href
+                    var url = new URL(url_string);
+                    var fbclidValue = url.searchParams.get("fbclid");
+                    var gclidValue = url.searchParams.get("gclid");
+                    var msclkidValue = url.searchParams.get("msclkid");
+                    var msclkid = 'msclkid';
+                    var gclid = 'gclid';
+                    var fbclid = 'fbclid';
+                    var campaignTrafficSourceId;
+
+                    var cookieSession = sessionStorage.getItem('cookieSession');
+
+                    if (url_string.indexOf('&' + fbclid + '=') != -1) {
+                        campaignTrafficSourceId = '|fbclid=' + fbclidValue;
+
+                    } else if (url_string.indexOf('&' + gclid + '=') != -1) {
+                        campaignTrafficSourceId = '|gclid=' + gclidValue;
+
+                    } else if (url_string.indexOf('&' + msclkid + '=') != -1) {
+                        campaignTrafficSourceId = '|msclkid=' + msclkidValue;
+                    }
+
+
 
                     function writeCookie_(name, value, expiration) {
 
@@ -50,11 +74,16 @@
                         if (cvals.length > 1) return cvals.pop().split(';')[0];
 
                     }
-                    function writeCurrentCookie_(name,value,expires) {
+                    function writeCurrentCookie_(name, value, expires, id) {
 
                         // if (path) str += 'Path=' + path + ';';
                         // if (domain) str += 'Domain=' + domain + ';';
-                        var str = name + '=' + value + expires + ';';
+                        if (id) {
+                            var str = name + '=' + value + id + expires + ';';
+
+                        } else {
+                            var str = name + '=' + value + expires + ';';
+                        }
 
 
                         document.cookie = str;
@@ -62,14 +91,14 @@
                     }
 
                     if (!getCookie_('initialTrafficSource')) {
-                        writeCookie_('initialTrafficSource', newCookieVals.join('|'), cookieExpiration, '/');
+                        writeCookie_('initialTrafficSource', newCookieVals.join('|'), cookieExpiration, '/', campaignTrafficSourceId);
                     }
                     if (!getCookie_('esvTrafficSource')) {
                         sessionStorage.setItem('cookieSession', 'false');
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), '/');
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), '/', campaignTrafficSourceId);
                     }
                     if (cookieSession == 'true') {
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), '/');
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), '/', campaignTrafficSourceId);
                         sessionStorage.setItem('cookieSession', 'false');
                     } ƒ
 
