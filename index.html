@@ -55,7 +55,7 @@
 
 
 
-                    function writeCookie_(name, value, expiration,id) {
+                    function writeCookie_(name, value, expiration, id) {
 
                         var str = name + '=' + value + ';';
                         if (expiration) str += 'Expires=' + expiration.toGMTString() + ';';
@@ -74,10 +74,17 @@
                         if (cvals.length > 1) return cvals.pop().split(';')[0];
 
                     }
-                    function writeCurrentCookie_(name, value, expires, id) {
+                    function writeCurrentCookie_(name, value, id, minutes) {
 
                         // if (path) str += 'Path=' + path + ';';
                         // if (domain) str += 'Domain=' + domain + ';';
+                        if (minutes) {
+                            var date = new Date();
+                            date.setTime(date.getTime() + (minutes * 60 * 1000));
+                            var expires = "; expires=" + date.toGMTString();
+                        } else {
+                            var expires = "";
+                        }
                         if (id) {
                             var str = name + '=' + value + id + expires + ';';
 
@@ -95,12 +102,12 @@
                     }
                     if (!getCookie_('esvTrafficSource')) {
                         sessionStorage.setItem('cookieSession', 'false');
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId);
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId,30);
                     }
                     if (cookieSession == 'true') {
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId);
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId,30);
                         sessionStorage.setItem('cookieSession', 'false');
-                    } 
+                    }
 
                     //     var utm_campaign = params.utm_campaign;
                     //     var utm_medium = params.utm_medium;
