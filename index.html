@@ -97,9 +97,9 @@
 
                     }
 
-                    if (!getCookie_('initialTrafficSource')) {
-                        writeCookie_('initialTrafficSource', newCookieVals.join('|'), cookieExpiration, campaignTrafficSourceId);
-                    }
+                    // if (!getCookie_('initialTrafficSource')) {
+                    //     writeCookie_('initialTrafficSource', newCookieVals.join('|'), cookieExpiration, campaignTrafficSourceId);
+                    // }
                     if (!getCookie_('esvTrafficSource')) {
                         sessionStorage.setItem('cookieSession', 'false');
                         writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId,30);
