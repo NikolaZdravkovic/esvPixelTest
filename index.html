@@ -55,16 +55,16 @@
 
 
 
-                    function writeCookie_(name, value, expiration, id) {
+                    // function writeCookie_(name, value, expiration, id) {
 
-                        var str = name + '=' + value + ';';
-                        if (expiration) str += 'Expires=' + expiration.toGMTString() + ';';
-                        // if (path) str += 'Path=' + path + ';';
-                        // if (domain) str += 'Domain=' + domain + ';';
+                    //     var str = name + '=' + value + ';';
+                    //     if (expiration) str += 'Expires=' + expiration.toGMTString() + ';';
+                    //     // if (path) str += 'Path=' + path + ';';
+                    //     // if (domain) str += 'Domain=' + domain + ';';
 
-                        document.cookie = str;
+                    //     document.cookie = str;
 
-                    }
+                    // }
 
                     function getCookie_(name) {
 
@@ -102,10 +102,10 @@
                     // }
                     if (!getCookie_('esvTrafficSource')) {
                         sessionStorage.setItem('cookieSession', 'false');
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId,30);
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId, 30);
                     }
                     if (cookieSession == 'true') {
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId,30);
+                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId, 30);
                         sessionStorage.setItem('cookieSession', 'false');
                     }
 
@@ -120,7 +120,46 @@
 
             // Setup an event listener that calls receiveMessage() when the window
             // receives a new MessageEvent.
-            window.addEventListener('message', receiveMessage);
+            window.addEventListener('message', receiveMessage);     
+
+            var bigQueryValue;
+
+            function getCookieName() {
+            var name = 'esvTrafficSource'
+            var re = new RegExp(name + "=([^;]+)");
+            var value = re.exec(document.cookie)[1];
+            //console.log(value);
+            if(value !== null){
+                bigQueryValue = 'https://bpt.easyvoyage.fr/pixel.png'+'?'+value;
+            }
+        }
+
+            // Send request to BigQuery
+            function httpGetAsync() {
+
+                var queryURL;
+
+                if (bigQueryValue !==undefined) {
+
+                    queryURL = bigQueryValue;
+
+
+                } else {
+                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png';
+                }
+                const http = new XMLHttpRequest()
+
+                http.open("GET", queryURL)
+                http.send()
+
+                http.onload = function () { console.log(http.responseText) };
+
+
+            }
+
+
+       
+
         }
 
     </script>
