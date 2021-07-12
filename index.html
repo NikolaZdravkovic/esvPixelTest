@@ -120,26 +120,26 @@
 
             // Setup an event listener that calls receiveMessage() when the window
             // receives a new MessageEvent.
-            window.addEventListener('message', receiveMessage);     
+            window.addEventListener('message', receiveMessage);
 
             var bigQueryValue;
 
             function getCookieName() {
-            var name = 'esvTrafficSource'
-            var re = new RegExp(name + "=([^;]+)");
-            var value = re.exec(document.cookie)[1];
-            //console.log(value);
-            if(value !== null){
-                bigQueryValue = 'https://bpt.easyvoyage.fr/pixel.png'+'?'+value;
+                var name = 'esvTrafficSource'
+                var re = new RegExp(name + "=([^;]+)");
+                var value = re.exec(document.cookie)[1];
+                //console.log(value);
+                if (value !== null) {
+                    bigQueryValue = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + value;
+                }
             }
-        }
 
             // Send request to BigQuery
             function httpGetAsync() {
 
                 var queryURL;
 
-                if (bigQueryValue !==undefined) {
+                if (bigQueryValue !== undefined) {
 
                     queryURL = bigQueryValue;
 
@@ -157,12 +157,10 @@
 
             }
 
-
-       
-
         }
 
     </script>
+    
 </body>
 
 </html>
