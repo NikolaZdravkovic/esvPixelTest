@@ -165,13 +165,37 @@
         window.onload = function () {
             var queryString;
 
+            // Send request to BigQuery
+            function httpGetAsync() {
+
+                var queryURL;
+
+                if (queryString !== undefined) {
+
+                    queryURL =  'https://bpt.easyvoyage.fr/pixel.png?'+queryString;
+
+
+                } else {
+                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png';
+                }
+                var http = new XMLHttpRequest()
+
+                http.open("GET", queryURL)
+                http.send()
+
+                http.onload = function () { console.log(http.responseText) };
+
+
+            }
+           
             function receiveMessage(e) {
 
                 // Check to make sure that this message came from the correct domain.
                 if (e.type === "message") {
                     // Update the div element to display the message.
                     queryString = e.data;
-
+                } else{
+                    queryString = undefined;
                 }
                 document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
 
@@ -179,6 +203,7 @@
             // Setup an event listener that calls receiveMessage() when the window
             // receives a new MessageEvent.
             window.addEventListener('message', receiveMessage);
+            httpGetAsync();
         }
     </script>
 
