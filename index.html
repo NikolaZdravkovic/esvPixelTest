@@ -124,7 +124,8 @@
 
             var bigQueryValue;
 
-            function getCookieName() {
+        }
+        function getCookieName() {
                 var name = 'esvTrafficSource'
                 var re = new RegExp(name + "=([^;]+)");
                 var value = re.exec(document.cookie)[1];
@@ -156,8 +157,8 @@
 
 
             }
-
-        }
+            getCookieName();
+            httpGetAsync();
 
     </script>
     
