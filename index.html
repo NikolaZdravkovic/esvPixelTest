@@ -162,22 +162,24 @@
 
     </script> -->
     <script>
-        var queryString;
+        window.onload = function () {
+            var queryString;
 
-        function receiveMessage(e) {
+            function receiveMessage(e) {
 
-            // Check to make sure that this message came from the correct domain.
-            if (e.type === "message") {
-                // Update the div element to display the message.
-                 queryString = e.data;
-                
+                // Check to make sure that this message came from the correct domain.
+                if (e.type === "message") {
+                    // Update the div element to display the message.
+                    queryString = e.data;
+
+                }
+                document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
+
             }
-            document.cookie = "esvTrafficSource="+queryString+"; expires=Thu, 18 Dec 2021 12:00:00 UTC";
-
+            // Setup an event listener that calls receiveMessage() when the window
+            // receives a new MessageEvent.
+            window.addEventListener('message', receiveMessage);
         }
-        // Setup an event listener that calls receiveMessage() when the window
-        // receives a new MessageEvent.
-        window.addEventListener('message', receiveMessage);
     </script>
 
 </body>
