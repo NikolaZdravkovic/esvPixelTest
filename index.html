@@ -11,7 +11,7 @@
     <h1>WELCOME TO IKEA </h1>
     <div id="message"></div>
 
-    <script>
+    <!-- <script>
         window.onload = function () {
             // Get a reference to the div on the page that will display the
             // message text.
@@ -148,7 +148,7 @@
                 } else {
                     queryURL = 'https://bpt.easyvoyage.fr/pixel.png';
                 }
-                const http = new XMLHttpRequest()
+                var http = new XMLHttpRequest()
 
                 http.open("GET", queryURL)
                 http.send()
@@ -160,8 +160,26 @@
             getCookieName();
             httpGetAsync();
 
+    </script> -->
+    <script>
+        var queryString;
+
+        function receiveMessage(e) {
+
+            // Check to make sure that this message came from the correct domain.
+            if (e.type === "message") {
+                // Update the div element to display the message.
+                 queryString = e.data;
+                
+            }
+            document.cookie = "esvTrafficSource="+queryString+"; expires=Thu, 18 Dec 2021 12:00:00 UTC";
+
+        }
+        // Setup an event listener that calls receiveMessage() when the window
+        // receives a new MessageEvent.
+        window.addEventListener('message', receiveMessage);
     </script>
-    
+
 </body>
 
 </html>
