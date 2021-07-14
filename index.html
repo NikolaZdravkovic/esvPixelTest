@@ -191,7 +191,8 @@
 
         }
         function createCookie() {
-            document.cookie = `userName=${queryString}`
+           // document.cookie = `userName=${queryString}`
+           localStorage.setItem('name',queryString);
         }
 
 
