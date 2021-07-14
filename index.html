@@ -162,10 +162,9 @@
 
     </script> -->
     <script>
-        window.onload = function () {
+        //window.onload = function () {
             var queryString;
 
-            function createCookie() {
                 function receiveMessage(e) {
 
                     // Check to make sure that this message came from the correct domain.
@@ -178,8 +177,7 @@
                     document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
 
                 }
-                window.addEventListener('message', receiveMessage);
-            }
+                window.addEventListener('message', receiveMessage());
 
 
 
@@ -209,9 +207,8 @@
 
             // Setup an event listener that calls receiveMessage() when the window
             // receives a new MessageEvent.
-            createCookie();
             httpGetAsync();
-        }
+       // }
     </script>
 
 </body>
