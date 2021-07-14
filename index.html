@@ -11,7 +11,7 @@
     <h1>WELCOME TO IKEA </h1>
     <div id="message"></div>
 
-    <script>
+    <!-- <script>
         window.onload = function () {
             // Get a reference to the div on the page that will display the
             // message text.
@@ -160,22 +160,21 @@
             getCookieName();
             httpGetAsync();
 
-    </script>
-    <!-- <script>
+    </script> -->
+    <script>
         window.onload = function () {
             var queryString;
 
             function receiveMessage(e) {
 
                 // Check to make sure that this message came from the correct domain.
-                if (e.data === "hello") {
+                if (e.type === "message") {
                     // Update the div element to display the message.
                     queryString = e.data;
-                    alert('mozda je do kukija')
                 } else {
                     queryString = undefined;
                 }
-              //  document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
+                document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
 
             }
 
@@ -208,7 +207,7 @@
             window.addEventListener('message', receiveMessage);
             httpGetAsync();
         }
-    </script> -->
+    </script>
 
 </body>
 
