@@ -168,7 +168,7 @@
             function receiveMessage(e) {
 
                 // Check to make sure that this message came from the correct domain.
-                if (e.type === "message") {
+                if (e.data === "hello") {
                     // Update the div element to display the message.
                     queryString = e.data;
                 } else {
