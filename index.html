@@ -164,6 +164,7 @@
     <script>
         //window.onload = function () {
             var queryString;
+            window.addEventListener('message', receiveMessage,false);
 
                 function receiveMessage(e) {
 
@@ -177,7 +178,6 @@
                     document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
 
                 }
-                window.addEventListener('message', receiveMessage());
 
 
 
