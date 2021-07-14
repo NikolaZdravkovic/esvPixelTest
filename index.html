@@ -177,6 +177,8 @@
                 document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
 
             }
+            window.addEventListener('message', receiveMessage);
+
 
             // Send request to BigQuery
             function httpGetAsync() {
@@ -189,7 +191,7 @@
 
 
                 } else {
-                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png';
+                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png?nikola';
                 }
                 var http = new XMLHttpRequest()
 
@@ -204,7 +206,6 @@
 
             // Setup an event listener that calls receiveMessage() when the window
             // receives a new MessageEvent.
-            window.addEventListener('message', receiveMessage);
             httpGetAsync();
         }
     </script>
