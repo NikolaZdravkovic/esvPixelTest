@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        var queryString;
+        window.addEventListener('message', function (e) {
+            alert(e.data)
+        }, false);
+
+
+    </script>
 </head>
 
 <body style="background-color: yellow;">
@@ -163,46 +171,46 @@
     </script> -->
     <script>
         //window.onload = function () {
-            var queryString;
-            window.addEventListener('message', receiveMessage,false);
+        var queryString;
+        window.addEventListener('message', receiveMessage, false);
 
-                function receiveMessage(e) {
-                    alert(e.data)
-                    // Check to make sure that this message came from the correct domain.
-                    // if (e.type === "message") {
-                    //     // Update the div element to display the message.
-                    //     queryString = e.data;
-                    // } else {
-                    //     queryString = undefined;
-                    // }
-                    // document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
+        function receiveMessage(e) {
+            alert(e.data)
+            // Check to make sure that this message came from the correct domain.
+            // if (e.type === "message") {
+            //     // Update the div element to display the message.
+            //     queryString = e.data;
+            // } else {
+            //     queryString = undefined;
+            // }
+            // document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
 
-                }
-
-
-
-            // Send request to BigQuery
-            function httpGetAsync() {
-
-                var queryURL;
-
-                if (queryString !== undefined) {
-
-                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + queryString;
+        }
 
 
-                } else {
-                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png?nikola';
-                }
-                var http = new XMLHttpRequest()
 
-                http.open("GET", queryURL)
-                http.send()
+        // Send request to BigQuery
+        function httpGetAsync() {
 
-                http.onload = function () { console.log(http.responseText) };
+            var queryURL;
+
+            if (queryString !== undefined) {
+
+                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + queryString;
 
 
+            } else {
+                queryURL = 'https://bpt.easyvoyage.fr/pixel.png?nikola';
             }
+            var http = new XMLHttpRequest()
+
+            http.open("GET", queryURL)
+            http.send()
+
+            http.onload = function () { console.log(http.responseText) };
+
+
+        }
 
 
             // Setup an event listener that calls receiveMessage() when the window
