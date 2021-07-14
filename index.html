@@ -176,6 +176,9 @@
 
         function receiveMessage(e) {
             alert(e.data)
+            console.log(e)
+            document.cookie = "esvTrafficSource=" + e.data + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
+
             // Check to make sure that this message came from the correct domain.
             // if (e.type === "message") {
             //     // Update the div element to display the message.
