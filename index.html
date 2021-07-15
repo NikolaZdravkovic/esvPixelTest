@@ -179,6 +179,7 @@
             console.log(e)
             queryString = e.data;
             createCookie();
+            httpGetAsync();
 
             // Check to make sure that this message came from the correct domain.
             // if (e.type === "message") {
