@@ -170,30 +170,18 @@
 
     </script> -->
     <script>
-        //window.onload = function () {
         var queryString;
         window.addEventListener('message', receiveMessage, false);
 
         function receiveMessage(e) {
-            alert(e.data)
-            console.log(e)
             queryString = e.data;
-            createCookie();
+            createDataLocalStorage();
             httpGetAsync();
 
-            // Check to make sure that this message came from the correct domain.
-            // if (e.type === "message") {
-            //     // Update the div element to display the message.
-            //     queryString = e.data;
-            // } else {
-            //     queryString = undefined;
-            // }
-            // document.cookie = "esvTrafficSource=" + queryString + "; expires=Thu, 18 Dec 2021 12:00:00 UTC";
-
         }
-        function createCookie() {
-           // document.cookie = `userName=${queryString}`
-           localStorage.setItem('esvTrafficSource',queryString);
+
+        function createDataLocalStorage() {
+           localStorage.setItem('productMasterCode',queryString);
         }
 
 
@@ -206,10 +194,7 @@
 
                 queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + queryString;
 
-
-            } else {
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png?nikola';
-            }
+            } 
             var http = new XMLHttpRequest()
 
             http.open("GET", queryURL)
@@ -220,11 +205,6 @@
 
         }
 
-
-            // Setup an event listener that calls receiveMessage() when the window
-            // receives a new MessageEvent.
-           // httpGetAsync();
-       // }
     </script>
 
 </body>
