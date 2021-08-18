@@ -227,7 +227,7 @@
             var value_or_null = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
             if (value_or_null === null) {
                 var date = new Date();
-                date.setTime(date.getTime() + (1 * 60 * 1000));
+                date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
                 var expires = "; expires=" + date.toGMTString();
                 document.cookie = ev_origin + '=' + queryString + expires;
             }
@@ -291,7 +291,7 @@
             }
         }
         //Trigger button on merchant website
-        buyTicketBtn.addEventListener('click', conversionTrigger());
+        buyTicketBtn.addEventListener('click', conversionTrigger);
 
     </script>
 
