@@ -169,7 +169,7 @@
             httpGetAsync();
 
     </script> -->
-    <script>
+    <!-- <script>
         var queryString;
         window.addEventListener('message', receiveMessage, false);
 
@@ -205,7 +205,50 @@
 
         }
 
-    </script>
+    </script> -->
+
+<script>
+    //NEW SCRIPT 18.08.2021
+    var queryString;
+    var event_name= 'arrival';
+    var ev_origin = 'ev_origin';
+    window.addEventListener('message', receiveMessage, false);
+
+    function receiveMessage(e) {
+        queryString = e.data;
+        createEventCookie();
+        httpGetAsync();
+
+    }
+    var str = name + '=' + value + id + expires + ';';
+
+    function createEventCookie() {
+    //    localStorage.setItem('ev_origin',queryString);
+    document.cookie = ev_origin + '=' + queryString;
+    }
+
+
+    // Send request to BigQuery
+    function httpGetAsync() {
+
+        var queryURL;
+
+        if (queryString !== undefined) {
+
+            queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + queryString;
+
+        } 
+        var http = new XMLHttpRequest()
+
+        http.open("GET", queryURL)
+        http.send()
+
+        http.onload = function () { console.log(http.responseText) };
+
+
+    }
+
+</script>
 
 </body>
 
