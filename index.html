@@ -215,89 +215,64 @@
         var event_name = 'arrival';
         var ev_origin = 'ev_origin';
         window.addEventListener('message', receiveMessage, false);
-        
 
         function receiveMessage(e) {
             queryString = e.data;
             createEventCookie();
-            httpGetAsync();
 
         }
-
 
         function createEventCookie() {
-            var value_or_null = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
-            if (value_or_null === null) {
+            var ifCookieExists = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
+            if (ifCookieExists === null) {
                 var date = new Date();
-                date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
+                date.setTime(date.getTime() + (30 * 60 * 1000)); // set time for cookie expiration
                 var expires = "; expires=" + date.toGMTString();
                 document.cookie = ev_origin + '=' + queryString + expires;
+                httpGetAsync();
             }
         }
 
 
-        // Send request to BigQuery
+        // Send arrival request to BigQuery
         function httpGetAsync() {
-
             var queryURL;
-
             if (queryString !== undefined) {
-
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + queryString;
-
+                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + queryString;
             }
             var http = new XMLHttpRequest()
-
             http.open("GET", queryURL)
             http.send()
-
             http.onload = function () { console.log(http.responseText) };
-
-
         }
-
     </script>
 
-    <script>
+    <!-- <script>
         //Trigger script 
         var event_name = 'booking';
         var cookieValue = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
         var buyTicketBtn = document.getElementById('buyTicket');
 
 
+        //Trigger function checks - if our cookie exists -> send conversion pixel to BigQuery
+        if (cookieValue !== null) {
+            httpSendConversionPixel();
+        }
+
         // Send conversion request to BigQuery
         function httpSendConversionPixel() {
 
             var queryURL;
-
-            if (cookieValue !== null) {
-
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + cookieValue;
-
-
-            }
+            queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + cookieValue;
             var http = new XMLHttpRequest()
 
             http.open("GET", queryURL)
             http.send()
 
             http.onload = function () { console.log(http.responseText) };
-
-
         }
-        //Trigger function checks - if our cookie exists -> send conversion pixel to BigQuery
-        function conversionTrigger() {
-            var cookieExpired = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
 
-            if(cookieExpired !== null){
-                httpSendConversionPixel();
-
-            }
-        }
-        //Trigger button on merchant website
-        buyTicketBtn.addEventListener('click', conversionTrigger);
-
-    </script>
+    </script> -->
 
 </body>
 
