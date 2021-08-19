@@ -222,14 +222,34 @@
 
         }
 
+        function createCookie() {
+            var date = new Date();
+            date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
+            var expires = "; expires=" + date.toGMTString();
+            document.cookie = ev_origin + '=' + queryString + expires;
+            httpGetAsync();
+        }
+        // function cookieValueLocalStorage() {
+        //     var countdown = 1 * 60 * 1000;
+        //     var timerId = setInterval(function () {
+        //         countdown -= 1000;
+        //         if (countdown <= 0) {
+        //             localStorage.removeItem("ev_origin_value");
+        //             clearInterval(timerId);
+        //         }
+
+        //     }, 1000);
+        // }
+
         function createEventCookie() {
             var ifCookieExists = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
             if (ifCookieExists === null) {
-                var date = new Date();
-                date.setTime(date.getTime() + (30 * 60 * 1000)); // set time for cookie expiration
-                var expires = "; expires=" + date.toGMTString();
-                document.cookie = ev_origin + '=' + queryString + expires;
-                httpGetAsync();
+                createCookie();
+                // localStorage.setItem('ev_origin_value', queryString);
+                // cookieValueLocalStorage();
+            } else {
+                document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                createCookie();
             }
         }
 
@@ -247,7 +267,7 @@
         }
     </script>
 
-    <!-- <script>
+    <script>
         //Trigger script 
         var event_name = 'booking';
         var cookieValue = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
@@ -272,7 +292,7 @@
             http.onload = function () { console.log(http.responseText) };
         }
 
-    </script> -->
+    </script>
 
 </body>
 
