@@ -215,6 +215,7 @@
         var event_name = 'arrival';
         var ev_origin = 'ev_origin';
         window.addEventListener('message', receiveMessage, false);
+        
 
         function receiveMessage(e) {
             queryString = e.data;
@@ -222,6 +223,7 @@
             httpGetAsync();
 
         }
+
 
         function createEventCookie() {
             var value_or_null = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
@@ -263,15 +265,14 @@
         var buyTicketBtn = document.getElementById('buyTicket');
 
 
-
         // Send conversion request to BigQuery
         function httpSendConversionPixel() {
 
             var queryURL;
 
-            if (cookieValue !== undefined) {
+            if (cookieValue !== null) {
 
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' +'?' + 'event='+ event_name+ '/' +'origin='+ cookieValue;
+                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + cookieValue;
 
 
             }
@@ -286,8 +287,11 @@
         }
         //Trigger function checks - if our cookie exists -> send conversion pixel to BigQuery
         function conversionTrigger() {
-            if (cookieValue !== null) {
+            var cookieExpired = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
+
+            if(cookieExpired !== null){
                 httpSendConversionPixel();
+
             }
         }
         //Trigger button on merchant website
