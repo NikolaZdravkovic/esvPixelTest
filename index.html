@@ -269,13 +269,54 @@
 
     <script>
         //NEW SCRIPT 23.08.2021 --> new postmessaging with windows
-        window.addEventListener("message",
-            function (e) {
+        // window.addEventListener("message",
+        //     function (e) {
 
-                console.log(e.data);//your data is captured in e.data 
-            }, false);
+        //         console.log(e.data);//your data is captured in e.data 
+        //     }, false);
     </script>
 
+<script>
+        //SCRIPT WITH # SOLUTION
+        var hashParams = window.location.href;
+        var event_name = 'arrival';
+        var ev_origin = 'ev_origin';
+        function createCookie() {
+            var date = new Date();
+            date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
+            var expires = "; expires=" + date.toGMTString();
+            document.cookie = ev_origin + '=' + hashParams + expires;
+            httpGetAsync()
+        }
+
+        function createEventCookie() {
+            var ifCookieExists = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
+            if (ifCookieExists === null) {
+                createCookie();
+     
+               // localStorage.setItem('arrival', 'true');
+
+                // localStorage.setItem('ev_origin_value', queryString);
+                // cookieValueLocalStorage();
+            } else {
+                document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                createCookie();
+                //localStorage.setItem('arrival', 'true');
+
+            }
+        }
+        function httpGetAsync() {
+            var queryURL;
+            if (hashParams !== undefined) {
+                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + hashParams;
+            }
+            var http = new XMLHttpRequest()
+            http.open("GET", queryURL)
+            http.send()
+            http.onload = function () { console.log(http.responseText) };
+        }
+
+</script>
 
 
 
