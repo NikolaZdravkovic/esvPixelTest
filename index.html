@@ -18,7 +18,6 @@
 <body style="background-color: yellow;">
     <h1>MERCHANT PAGE</h1>
     <div id="message"></div>
-
     <button id="buyTicket">BUY TICKET</button>
 
     <!-- <script>
@@ -209,7 +208,7 @@
 
     </script> -->
 
-    <script>
+    <!-- <script>
         //NEW SCRIPT 18.08.2021
         var queryString;
         var event_name = 'arrival';
@@ -229,24 +228,12 @@
             document.cookie = ev_origin + '=' + queryString + expires;
             httpGetAsync();
         }
-        // function cookieValueLocalStorage() {
-        //     var countdown = 1 * 60 * 1000;
-        //     var timerId = setInterval(function () {
-        //         countdown -= 1000;
-        //         if (countdown <= 0) {
-        //             localStorage.removeItem("ev_origin_value");
-        //             clearInterval(timerId);
-        //         }
-
-        //     }, 1000);
-        // }
-
+     
         function createEventCookie() {
             var ifCookieExists = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
             if (ifCookieExists === null) {
                 createCookie();
-                // localStorage.setItem('ev_origin_value', queryString);
-                // cookieValueLocalStorage();
+     
             } else {
                 document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 createCookie();
@@ -265,7 +252,24 @@
             http.send()
             http.onload = function () { console.log(http.responseText) };
         }
+    </script> -->
+
+    <script>
+        //NEW SCRIPT 23.08.2021 --> new postmessaging with windows
+        window.addEventListener("message",
+            function (e) {
+
+                console.log(e.data);//your data is captured in e.data 
+            }, false);
     </script>
+
+
+
+
+
+
+
+
 
     <!-- <script>
         //Trigger script 
