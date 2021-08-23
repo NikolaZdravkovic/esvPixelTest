@@ -220,13 +220,19 @@
             createEventCookie();
 
         }
-
+        if (window.location.href==='https://nikolazdravkovic.github.io/esvPixelTest/'){
+            var arrivalValue = localStorage.getItem('arrival');
+            if(arrivalValue ==='true'){
+                httpGetAsync()
+            } else{
+                console.log('ups, you reloaded the page!')
+            }
+        }
         function createCookie() {
             var date = new Date();
             date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
             var expires = "; expires=" + date.toGMTString();
             document.cookie = ev_origin + '=' + queryString + expires;
-            httpGetAsync();
         }
      
         function createEventCookie() {
@@ -234,15 +240,22 @@
             if (ifCookieExists === null) {
                 createCookie();
      
+                localStorage.setItem('arrival', 'true');
+
+                // localStorage.setItem('ev_origin_value', queryString);
+                // cookieValueLocalStorage();
             } else {
                 document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 createCookie();
+                localStorage.setItem('arrival', 'true');
+
             }
         }
 
 
         // Send arrival request to BigQuery
         function httpGetAsync() {
+            localStorage.setItem('arrival', 'false');
             var queryURL;
             if (queryString !== undefined) {
                 queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + queryString;
