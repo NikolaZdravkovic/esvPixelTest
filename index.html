@@ -225,6 +225,8 @@
             document.referrer.indexOf("https://nikolazdravkovic.github.io/esvPixelTest/") == -1) {
             // Page loading process script goes here.
             httpGetAsync();
+        } else{
+            console.log('dont send')
         }
         function createCookie() {
             var date = new Date();
