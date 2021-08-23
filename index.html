@@ -221,13 +221,16 @@
             createEventCookie();
 
         }
-
+        if (document.referrer &&
+            document.referrer.indexOf("https://nikolazdravkovic.github.io/esvPixelTest/") == -1) {
+            // Page loading process script goes here.
+            httpGetAsync();
+        }
         function createCookie() {
             var date = new Date();
             date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
             var expires = "; expires=" + date.toGMTString();
             document.cookie = ev_origin + '=' + queryString + expires;
-            httpGetAsync();
         }
         // function cookieValueLocalStorage() {
         //     var countdown = 1 * 60 * 1000;
