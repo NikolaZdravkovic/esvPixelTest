@@ -308,7 +308,7 @@
         function httpGetAsync() {
             var queryURL;
             if (hashParams !== undefined) {
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + hashParams;
+                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin' + hashParams;
             }
             var http = new XMLHttpRequest()
             http.open("GET", queryURL)
