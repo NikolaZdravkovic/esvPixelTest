@@ -21,7 +21,7 @@
     <button id="buyTicket">BUY TICKET</button>
 
 
-<script>
+    <script>
         //SCRIPT WITH # SOLUTION
         var hashParams = window.location.hash.substring(1);
         var event_name = 'arrival';
@@ -39,7 +39,7 @@
             var ifCookieExists = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
             if (ifCookieExists === null) {
                 createCookie();
-     
+
             } else {
                 document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 createCookie();
@@ -58,7 +58,7 @@
         }
         createEventCookie();
 
-</script>
+    </script>
 
     <script>
         //Trigger script 
@@ -67,10 +67,7 @@
         var buyTicketBtn = document.getElementById('buyTicket');
 
 
-        //Trigger function checks - if our cookie exists -> send conversion pixel to BigQuery
-        if (cookieValue !== null) {
-            httpSendConversionPixel();
-        }
+
 
         // Send conversion request to BigQuery
         function httpSendConversionPixel() {
@@ -84,7 +81,12 @@
 
             http.onload = function () { console.log(http.responseText) };
         }
-
+        buyTicketBtn.addEventListener('click', function () {
+            //Trigger function checks - if our cookie exists -> send conversion pixel to BigQuery
+            if (cookieValue !== null) {
+                httpSendConversionPixel();
+            }
+        })
     </script>
 
 </body>
