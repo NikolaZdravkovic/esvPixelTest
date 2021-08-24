@@ -20,270 +20,16 @@
     <div id="message"></div>
     <button id="buyTicket">BUY TICKET</button>
 
-    <!-- <script>
-        window.onload = function () {
-            // Get a reference to the div on the page that will display the
-            // message text.
-            var messageEle = document.getElementById('message');
-            var newCookieVals;
-            var cookieExpiration = new Date(+new Date() + 1000 * 60 * 60 * 24 * 30 * 24);
-
-
-
-            // A function to process messages received by the window.
-            function receiveMessage(e) {
-                // Check to make sure that this message came from the correct domain.
-                if (e.type === "message") {
-                    // Update the div element to display the message.
-                    var newCookieVals = e.data;
-                    var storedVals = getCookie_('__utmz') || getCookie_('__utmzz');
-                    var sessionCookie = getCookie_('__utmzzses');
-
-                    // Define variables - take values from url
-                    var url_string = window.location.href; //window.location.href
-                    var url = new URL(url_string);
-                    var fbclidValue = url.searchParams.get("fbclid");
-                    var gclidValue = url.searchParams.get("gclid");
-                    var msclkidValue = url.searchParams.get("msclkid");
-                    var msclkid = 'msclkid';
-                    var gclid = 'gclid';
-                    var fbclid = 'fbclid';
-                    var campaignTrafficSourceId;
-
-                    var cookieSession = sessionStorage.getItem('cookieSession');
-
-                    if (url_string.indexOf('&' + fbclid + '=') != -1) {
-                        campaignTrafficSourceId = 'fbclid=' + fbclidValue;
-
-                    } else if (url_string.indexOf('&' + gclid + '=') != -1) {
-                        campaignTrafficSourceId = 'gclid=' + gclidValue;
-
-                    } else if (url_string.indexOf('&' + msclkid + '=') != -1) {
-                        campaignTrafficSourceId = 'msclkid=' + msclkidValue;
-                    }
-
-
-
-                    // function writeCookie_(name, value, expiration, id) {
-
-                    //     var str = name + '=' + value + ';';
-                    //     if (expiration) str += 'Expires=' + expiration.toGMTString() + ';';
-                    //     // if (path) str += 'Path=' + path + ';';
-                    //     // if (domain) str += 'Domain=' + domain + ';';
-
-                    //     document.cookie = str;
-
-                    // }
-
-                    function getCookie_(name) {
-
-                        var cookies = '; ' + document.cookie
-                        var cvals = cookies.split('; ' + name + '=');
-
-                        if (cvals.length > 1) return cvals.pop().split(';')[0];
-
-                    }
-                    function writeCurrentCookie_(name, value, id, minutes) {
-
-                        // if (path) str += 'Path=' + path + ';';
-                        // if (domain) str += 'Domain=' + domain + ';';
-                        if (minutes) {
-                            var date = new Date();
-                            date.setTime(date.getTime() + (minutes * 60 * 1000));
-                            var expires = "; expires=" + date.toGMTString();
-                        } else {
-                            var expires = "";
-                        }
-                        if (id) {
-                            var str = name + '=' + value + id + expires + ';';
-
-                        } else {
-                            var str = name + '=' + value + expires + ';';
-                        }
-
-
-                        document.cookie = str;
-
-                    }
-
-                    // if (!getCookie_('initialTrafficSource')) {
-                    //     writeCookie_('initialTrafficSource', newCookieVals.join('|'), cookieExpiration, campaignTrafficSourceId);
-                    // }
-                    if (!getCookie_('esvTrafficSource')) {
-                        sessionStorage.setItem('cookieSession', 'false');
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId, 30);
-                    }
-                    if (cookieSession == 'true') {
-                        writeCurrentCookie_('esvTrafficSource', newCookieVals.join('|'), campaignTrafficSourceId, 30);
-                        sessionStorage.setItem('cookieSession', 'false');
-                    }
-
-                    //     var utm_campaign = params.utm_campaign;
-                    //     var utm_medium = params.utm_medium;
-                    //     var utm_source=params.utm_source;
-                    //    console.log(e.data)
-                }
-
-
-            }
-
-            // Setup an event listener that calls receiveMessage() when the window
-            // receives a new MessageEvent.
-            window.addEventListener('message', receiveMessage);
-
-            var bigQueryValue;
-
-        }
-        function getCookieName() {
-                var name = 'esvTrafficSource'
-                var re = new RegExp(name + "=([^;]+)");
-                var value = re.exec(document.cookie)[1];
-                //console.log(value);
-                if (value !== null) {
-                    bigQueryValue = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + value;
-                }
-            }
-
-            // Send request to BigQuery
-            function httpGetAsync() {
-
-                var queryURL;
-
-                if (bigQueryValue !== undefined) {
-
-                    queryURL = bigQueryValue;
-
-
-                } else {
-                    queryURL = 'https://bpt.easyvoyage.fr/pixel.png';
-                }
-                var http = new XMLHttpRequest()
-
-                http.open("GET", queryURL)
-                http.send()
-
-                http.onload = function () { console.log(http.responseText) };
-
-
-            }
-            getCookieName();
-            httpGetAsync();
-
-    </script> -->
-    <!-- <script>
-        var queryString;
-        window.addEventListener('message', receiveMessage, false);
-
-        function receiveMessage(e) {
-            queryString = e.data;
-            createDataLocalStorage();
-            httpGetAsync();
-
-        }
-
-        function createDataLocalStorage() {
-           localStorage.setItem('productMasterCode',queryString);
-        }
-
-
-        // Send request to BigQuery
-        function httpGetAsync() {
-
-            var queryURL;
-
-            if (queryString !== undefined) {
-
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + queryString;
-
-            } 
-            var http = new XMLHttpRequest()
-
-            http.open("GET", queryURL)
-            http.send()
-
-            http.onload = function () { console.log(http.responseText) };
-
-
-        }
-
-    </script> -->
-
-    <!-- <script>
-        //NEW SCRIPT 18.08.2021
-        var queryString;
-        var event_name = 'arrival';
-        var ev_origin = 'ev_origin';
-        window.addEventListener('message', receiveMessage, false);
-
-        function receiveMessage(e) {
-            queryString = e.data;
-            createEventCookie();
-
-        }
-        if (window.location.href==='https://nikolazdravkovic.github.io/esvPixelTest/'){
-            var arrivalValue = localStorage.getItem('arrival');
-            if(arrivalValue ==='true'){
-                httpGetAsync()
-            } else{
-                console.log('ups, you reloaded the page!')
-            }
-        }
-        function createCookie() {
-            var date = new Date();
-            date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
-            var expires = "; expires=" + date.toGMTString();
-            document.cookie = ev_origin + '=' + queryString + expires;
-        }
-     
-        function createEventCookie() {
-            var ifCookieExists = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
-            if (ifCookieExists === null) {
-                createCookie();
-     
-                localStorage.setItem('arrival', 'true');
-
-                // localStorage.setItem('ev_origin_value', queryString);
-                // cookieValueLocalStorage();
-            } else {
-                document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                createCookie();
-                localStorage.setItem('arrival', 'true');
-
-            }
-        }
-
-
-        // Send arrival request to BigQuery
-        function httpGetAsync() {
-            localStorage.setItem('arrival', 'false');
-            var queryURL;
-            if (queryString !== undefined) {
-                queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + queryString;
-            }
-            var http = new XMLHttpRequest()
-            http.open("GET", queryURL)
-            http.send()
-            http.onload = function () { console.log(http.responseText) };
-        }
-    </script> -->
-
-    <script>
-        //NEW SCRIPT 23.08.2021 --> new postmessaging with windows
-        // window.addEventListener("message",
-        //     function (e) {
-
-        //         console.log(e.data);//your data is captured in e.data 
-        //     }, false);
-    </script>
 
 <script>
         //SCRIPT WITH # SOLUTION
         var hashParams = window.location.hash.substring(1);
         var event_name = 'arrival';
         var ev_origin = 'ev_origin';
+        
         function createCookie() {
             var date = new Date();
-            date.setTime(date.getTime() + (1 * 60 * 1000)); // set time for cookie expiration
+            date.setTime(date.getTime() + (30 * 60 * 1000)); // set time for cookie expiration
             var expires = "; expires=" + date.toGMTString();
             document.cookie = ev_origin + '=' + hashParams + expires;
             httpGetAsync()
@@ -294,14 +40,9 @@
             if (ifCookieExists === null) {
                 createCookie();
      
-               // localStorage.setItem('arrival', 'true');
-
-                // localStorage.setItem('ev_origin_value', queryString);
-                // cookieValueLocalStorage();
             } else {
                 document.cookie = ev_origin + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 createCookie();
-                //localStorage.setItem('arrival', 'true');
 
             }
         }
@@ -318,40 +59,6 @@
         createEventCookie();
 
 </script>
-
-
-
-
-
-
-
-
-    <!-- <script>
-        //Trigger script 
-        var event_name = 'booking';
-        var cookieValue = (document.cookie.match(/^(?:.*;)?\s*ev_origin\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]
-        var buyTicketBtn = document.getElementById('buyTicket');
-
-
-        //Trigger function checks - if our cookie exists -> send conversion pixel to BigQuery
-        if (cookieValue !== null) {
-            httpSendConversionPixel();
-        }
-
-        // Send conversion request to BigQuery
-        function httpSendConversionPixel() {
-
-            var queryURL;
-            queryURL = 'https://bpt.easyvoyage.fr/pixel.png' + '?' + 'event=' + event_name + '/' + 'origin=' + cookieValue;
-            var http = new XMLHttpRequest()
-
-            http.open("GET", queryURL)
-            http.send()
-
-            http.onload = function () { console.log(http.responseText) };
-        }
-
-    </script> -->
 
 </body>
 
